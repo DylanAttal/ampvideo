@@ -1,7 +1,9 @@
 class VideosController < ApplicationController
-  def index
-    @videos = Video.all
+  def find_matching_videos
+    search_term = params[:search_term]
 
-    render json: @videos
+    @matching_videos = Video.select { |video| video.title.include?(search_term) }.first(10)
+
+    render json: @matching_videos
   end
 end
