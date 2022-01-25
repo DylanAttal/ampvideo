@@ -75,6 +75,11 @@ export default {
   },
   methods: {
     async getMatchingVideos() {
+      if (this.searchTerm === '') {
+        this.matchingVideos = []
+        return
+      }
+
       await axios
         .get(`http://localhost:3000/videos?search_term=${this.searchTerm}`)
         .then((resp) => (this.matchingVideos = resp.data))
