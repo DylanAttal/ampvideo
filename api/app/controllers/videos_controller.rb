@@ -25,6 +25,7 @@ class VideosController < ApplicationController
       }
     }
 
-    render json: videos_dto
+    videos_sorted_by_rank = videos_dto.sort_by { |hash| hash[:rank] }.reverse
+    render json: videos_sorted_by_rank
   end
 end
