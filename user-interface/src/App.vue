@@ -80,6 +80,13 @@ export default {
         .then((resp) => (this.matchingVideos = resp.data))
     },
     selectVideo(index) {
+      if (
+        this.matchingVideos.length === 1 &&
+        this.matchingVideos[0].title === 'No suggestions'
+      ) {
+        return
+      }
+
       this.selectedVideo = this.matchingVideos[index]
       this.showVideoOptions = false
       this.$refs.searchbar.focus()
