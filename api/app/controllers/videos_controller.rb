@@ -7,11 +7,10 @@ class VideosController < ApplicationController
     @number_of_times_videos_viewed = VideoViewedLog.group(:video_id).count
 
     videos_dto = @matching_videos.map { |video|
-      # ((video_viewed_log.estimated_seconds_watched) / (video.video_length_second)) * (number of views)
 
       seconds_watched = VideoViewedLog.where(video_id: video.id).sum(:estimated_seconds_watched)
       video_length = video.video_length_second
-      number_of_views = @number_of_times_videos_viewed[video.id]
+      number_of_views = @number_of_times_videos_viewed[video.id] || 0
 
       video_rank = (seconds_watched / video_length) * number_of_views
 
