@@ -6,12 +6,12 @@
       v-model="searchTerm"
       class="searchbar"
       placeholder="Search..."
-      @change="getMatchingVideos"
+      @input="getMatchingVideos"
     />
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import axios from 'axios'
 
 export default {
