@@ -3,13 +3,12 @@
     <h1><span class="amp">Amp</span><span class="video">Video</span></h1>
     <input
       ref="searchbar"
-      v-model="searchTerm"
+      v-model="searchInput"
       class="searchbar"
       placeholder="Search..."
-      @input="getMatchingVideos"
     />
 
-    <section class="video-options">
+    <section class="video-options" v-show="showVideoOptions">
       <div
         v-for="(video, i) in matchingVideos"
         :key="i"
@@ -22,6 +21,14 @@
         {{ video.title }}
       </div>
     </section>
+
+    <div class="selected-video" v-show="selectedVideo.title">
+      <img :src="selectedVideo.thumbnail" alt="Selected video thumbnail." />
+      <div class="selected-video-text">
+        <p class="video-title">{{ selectedVideo.title }}</p>
+        <p>{{ selectedVideo.views }} views - {{ selectedVideo.owner }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,10 +47,31 @@ export default {
         views: '',
         rank: '',
       },
+      showVideoOptions: false,
+      timeout: null,
     }
   },
   mounted() {
     this.$refs.searchbar.focus()
+  },
+  computed: {
+    searchInput: {
+      get() {
+        return this.searchTerm
+      },
+      set(val) {
+        this.showVideoOptions = true
+
+        if (this.timeout) {
+          clearTimeout(this.timeout)
+        }
+
+        this.timeout = setTimeout(() => {
+          this.searchTerm = val
+          this.getMatchingVideos()
+        }, 300)
+      },
+    },
   },
   methods: {
     async getMatchingVideos() {
@@ -53,6 +81,7 @@ export default {
     },
     selectVideo(index) {
       this.selectedVideo = this.matchingVideos[index]
+      this.showVideoOptions = false
       this.$refs.searchbar.focus()
     },
   },
@@ -112,5 +141,30 @@ h1 {
 
 section div:last-of-type {
   border-bottom: 1px solid black;
+}
+
+.selected-video {
+  margin: 3rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.selected-video-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.selected-video-text p {
+  text-align: center;
+}
+
+.video-title {
+  color: #333;
+  font-weight: 600;
+  font-size: 1.2rem;
 }
 </style>
