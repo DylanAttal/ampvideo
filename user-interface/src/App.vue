@@ -1,9 +1,37 @@
 <template>
   <div id="app">
     <h1><span class="amp">Amp</span><span class="video">Video</span></h1>
-    <input class="searchbar" placeholder="Search..." />
+    <input
+      ref="searchbar"
+      v-model="searchTerm"
+      class="searchbar"
+      placeholder="Search..."
+      @change="getMatchingVideos"
+    />
   </div>
 </template>
+
+<script lang="ts">
+import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      searchTerm: '',
+    }
+  },
+  mounted() {
+    this.$refs.searchbar.focus()
+  },
+  methods: {
+    async getMatchingVideos() {
+      await axios.get(
+        `http://localhost:3000/videos?search_term=${this.searchTerm}`
+      )
+    },
+  },
+}
+</script>
 
 <style lang="scss">
 body {
