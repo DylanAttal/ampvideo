@@ -70,7 +70,7 @@ export default {
         this.timeout = setTimeout(() => {
           this.searchTerm = val
           this.getMatchingVideos()
-        }, 500)
+        }, 300)
       },
     },
   },
@@ -175,13 +175,9 @@ section div:last-of-type {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   padding-left: 1rem;
   padding-right: 1rem;
-}
-
-.selected-video-text p {
-  text-align: center;
 }
 
 .video-title {
