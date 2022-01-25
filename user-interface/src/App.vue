@@ -6,6 +6,7 @@
       v-model="searchInput"
       class="searchbar"
       placeholder="Search..."
+      @keypress.enter="selectVideoWithEnter"
     />
 
     <section class="video-options" v-show="showVideoOptions">
@@ -69,7 +70,7 @@ export default {
         this.timeout = setTimeout(() => {
           this.searchTerm = val
           this.getMatchingVideos()
-        }, 300)
+        }, 500)
       },
     },
   },
@@ -95,6 +96,15 @@ export default {
       this.selectedVideo = this.matchingVideos[index]
       this.showVideoOptions = false
       this.$refs.searchbar.focus()
+    },
+    selectVideoWithEnter() {
+      for (let i = 0; i < this.matchingVideos.length; i++) {
+        if (this.searchInput === this.matchingVideos[i].title) {
+          this.selectedVideo = this.matchingVideos[i]
+          this.showVideoOptions = false
+          this.$refs.searchbar.focus()
+        }
+      }
     },
   },
 }
