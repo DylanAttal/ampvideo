@@ -1,32 +1,40 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <h1><span class="amp">Amp</span><span class="video">Video</span></h1>
+    <input class="searchbar" placeholder="Search..." />
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body {
+  margin: 0;
 }
 
-#nav {
-  padding: 30px;
+#app {
+  font-family: Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+h1 {
+  font-weight: 100;
+  font-size: 3rem;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.amp {
+  color: #cc3333;
+}
+
+.video {
+  color: #333;
+}
+
+.searchbar {
+  width: 50%;
+  font-size: 1rem;
+  padding: 0.5rem;
 }
 </style>
