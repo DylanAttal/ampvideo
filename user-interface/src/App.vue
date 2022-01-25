@@ -14,6 +14,9 @@
         v-for="(video, i) in matchingVideos"
         :key="i"
         class="dropdown"
+        :style="{
+          cursor: video.title === 'No suggestions' ? 'not-allowed' : 'pointer',
+        }"
         @click="() => selectVideo(i)"
       >
         {{ video.title }}
@@ -101,7 +104,6 @@ h1 {
   padding: 0.5rem;
   border-right: 1px solid black;
   border-left: 1px solid black;
-  cursor: pointer;
 
   &:hover {
     background-color: #eee;
