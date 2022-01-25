@@ -9,13 +9,18 @@ class VideosController < ApplicationController
     puts @number_of_times_videos_viewed
     # ((video_viewed_log.estimated_seconds_watched) / (video.video_length_second)) * (number of views)
 
-    results = @matching_videos.map { |video|
+    videos_dto = @matching_videos.map { |video|
+
+      owner_name = VideoOwner.find{ |video_owner| video_owner.id == video.video_owner_id }.name
+      puts "owner name #{owner_name}"
+
       {
         title: video.title,
-        thumbnail: video.thumbnailurl
+        thumbnail: video.thumbnailurl,
+        owner: owner_name
       }
     }
 
-    render json: results
+    render json: videos_dto
   end
 end
